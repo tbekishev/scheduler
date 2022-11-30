@@ -9,7 +9,7 @@ export default function DayListItem(props) {
   return (
     <li className={buttonClass.replace(/\s/g, '')} onClick={()=>props.setDay(props.name)}>
       <h2 className="text--regular">{props.name}</h2> 
-      <h3 className="text--light">{props.spots} spots remaining</h3>
+      <h3 className="text--light">{props.spots === 0 ? "no" : props.spots} {props.spots === 1 ? "spot" : "spots"} remaining</h3>
     </li>
   );
 }
