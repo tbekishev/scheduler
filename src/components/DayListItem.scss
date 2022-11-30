@@ -23,6 +23,7 @@
       color: $dark-background;
       padding-left: 2rem;
       padding-top: 1rem;
+      padding-bottom: 1rem;
 
       &:hover {
         background-color: darken($white, 5%);
@@ -33,6 +34,7 @@
       opacity: $inactive-opacity;
       padding-left: 2rem;
       padding-top: 1rem;
+      padding-bottom: 1rem;
 
       &:hover {
         background-color: #ee5253;
