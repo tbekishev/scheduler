@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
-import "components/Appointment"
 import Appointment from "components/Appointment";
 import axios  from "axios";
 import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
+import { useVisualMode } from "../hooks/useVisualMode";
 
-
-
-
-export default function Application(props) {
+export default function Application() {
 
   const setDay = day => setState({ ...state, day });
   const setDays = (days) => {
@@ -35,14 +32,15 @@ export default function Application(props) {
   }, []);
   
   const dailyAppointments = getAppointmentsForDay(state,state.day);
-  const schedule = dailyAppointments.map((appointment) =>  {
+  const schedule = dailyAppointments.map((appointment) =>{ 
     const interview = getInterview(state, appointment.interview);
-    
+    return (
     <Appointment
-    key={appointment.id}
-    {...appointment}
-    />
-  });
+      key={appointment.id}
+      time={appointment.time}
+      interview={interview}
+    />)
+  })
 
   return (
     <main className="layout">
