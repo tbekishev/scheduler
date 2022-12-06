@@ -20,6 +20,45 @@ export default function Application() {
     interviewers: {}
   });
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+
+    setState({
+      ...state,
+      appointments
+    });
+  };
+
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null 
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+
+    setState({
+      ...state,
+      appointments
+    });
+  }
   
   useEffect(() => {
     Promise.all([
@@ -39,9 +78,12 @@ export default function Application() {
     return (
     <Appointment
       key={appointment.id}
+      id={appointment.id}
       time={appointment.time}
       interview={interview}
       interviewers={dailyInterviewers}
+      bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
     />)
   })
 
