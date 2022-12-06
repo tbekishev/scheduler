@@ -23,6 +23,16 @@ useEffect(() => {
 }, []);
 
 function bookInterview(id, interview) {
+
+  const interviewList = state.appointments[id];
+
+  if(!interviewList.interview)
+  for(let element of state.days) {
+    if(element.name === state.day) {
+      element.spots--;
+    }
+  }
+
   const appointment = {
     ...state.appointments[id],
     interview: { ...interview }
@@ -40,6 +50,27 @@ function bookInterview(id, interview) {
 };
 
 function cancelInterview(id) {
+
+  for(let element of state.days) {
+    if(element.name === state.day) {
+      element.spots++;
+    }
+  }
+
+  const appointment = {
+    ...state.appointments[id],
+    interview: null
+  };
+
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+
+  const days = state.days;
+
+  setState({...state, appointments, days});
+
   return axios.delete(`http://localhost:8001/api/appointments/${id}`);
 }
 return { state, setDay, bookInterview, cancelInterview }
