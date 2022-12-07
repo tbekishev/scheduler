@@ -24,7 +24,6 @@ export default function Appointment(props) {
   const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
   function save(name, interviewer) {
-    if (name && interviewer) {
       const interview = {
         student: name,
         interviewer
@@ -33,7 +32,6 @@ export default function Appointment(props) {
       props.bookInterview(props.id, interview)
       .then(()=> transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true));
-    }
   }
 
   function deleteInterview() {
