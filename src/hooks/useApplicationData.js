@@ -41,12 +41,12 @@ function bookInterview(id, interview) {
     ...state.appointments,
     [id]: appointment
   };
-
-  setState({
-    ...state,
-    appointments
-  });
-  return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview});   
+  
+  return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+    .then(() => setState({
+      ...state,
+      appointments
+    }));
 };
 
 function cancelInterview(id) {
@@ -69,9 +69,8 @@ function cancelInterview(id) {
 
   const days = state.days;
 
-  setState({...state, appointments, days});
-
-  return axios.delete(`http://localhost:8001/api/appointments/${id}`);
+  return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+  .then(() => setState({...state, appointments, days}));
 }
 return { state, setDay, bookInterview, cancelInterview }
 }
