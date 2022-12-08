@@ -11,6 +11,7 @@ const [state, setState] = useState({
   interviewers: {}
 });
 
+//get days, appointments and interviewers from the api-server
 useEffect(() => {
   Promise.all([
     axios.get("http://localhost:8001/api/days"),
@@ -22,10 +23,12 @@ useEffect(() => {
   
 }, []);
 
+// book/edit the appointment
 function bookInterview(id, interview) {
 
   const interviewList = state.appointments[id];
 
+  //if interview is just created decrease the amount of spots
   if(!interviewList.interview)
   for(let element of state.days) {
     if(element.name === state.day) {
@@ -42,6 +45,7 @@ function bookInterview(id, interview) {
     [id]: appointment
   };
   
+  //send the new appointment and update the state with the new appointment
   return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
     .then(() => setState({
       ...state,
@@ -49,6 +53,7 @@ function bookInterview(id, interview) {
     }));
 };
 
+// cancel the interview
 function cancelInterview(id) {
 
   for(let element of state.days) {
@@ -69,6 +74,7 @@ function cancelInterview(id) {
 
   const days = state.days;
 
+  //send "delete" request to the api server and update the state
   return axios.delete(`http://localhost:8001/api/appointments/${id}`)
   .then(() => setState({...state, appointments, days}));
 }

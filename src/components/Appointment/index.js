@@ -23,6 +23,7 @@ export default function Appointment(props) {
   const interviewers = props.interviewers;
   const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  //save/edit the appointment
   function save(name, interviewer) {
       const interview = {
         student: name,
@@ -34,6 +35,7 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true));
   }
 
+  //delete the interview
   function deleteInterview() {
     transition(DELETING, true);
     props.cancelInterview(props.id)

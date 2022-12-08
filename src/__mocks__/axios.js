@@ -57,6 +57,7 @@ export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
     if (url === "http://localhost:8001/api/days") {
+      /* Resolve days data */
       return Promise.resolve({
         status: 200,
         statusText: "OK",

@@ -1,3 +1,4 @@
+//array of appointments for the day
 export function getAppointmentsForDay(state, day) {
 
   let appointments = [];
@@ -15,6 +16,7 @@ export function getAppointmentsForDay(state, day) {
   return result;
 };
 
+//get interview information(student name and the interviewer)
 export function getInterview(state, interview) {
     if (!interview) return null;
     const interviewerId = interview.interviewer;
@@ -22,6 +24,7 @@ export function getInterview(state, interview) {
   return newObj;
 }
 
+//array of the interviewers for the day
 export function getInterviewersForDay(state, day) {
   let interviewers = [];
   const result = [];
