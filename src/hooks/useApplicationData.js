@@ -13,10 +13,13 @@ const [state, setState] = useState({
 
 //get days, appointments and interviewers from the api-server
 useEffect(() => {
+  const daysUrl = "/api/days";
+  const appointmentsUrl = "/api/appointments";
+  const interviewersUrl = "/api/interviewers"; 
   Promise.all([
-    axios.get("http://localhost:8001/api/days"),
-    axios.get("http://localhost:8001/api/appointments"),
-    axios.get("http://localhost:8001/api/interviewers")
+    axios.get(daysUrl),
+    axios.get(appointmentsUrl),
+    axios.get(interviewersUrl)
   ]).then((all) => {
     setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
   });
